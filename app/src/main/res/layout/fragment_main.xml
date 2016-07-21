@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:background="#fafafa"
+    android:orientation="vertical">
+
+    <org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
+        android:id="@+id/fontSizeSeekBar"
+        app:dsb_indicatorElevation="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="8dp"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:paddingTop="8dp"
+        app:dsb_indicatorColor="?attr/colorAccent"
+        app:dsb_max="80"
+        app:dsb_min="10"
+        app:dsb_progressColor="?attr/colorAccent"
+        app:dsb_rippleColor="?attr/colorAccent" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_below="@id/fontSizeSeekBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/mainTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@drawable/border"
+            android:padding="16dp"
+            android:text="@string/randomLongText" />
+
+    </android.support.v4.widget.NestedScrollView>
+</RelativeLayout>
