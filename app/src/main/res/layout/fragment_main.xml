@@ -9,33 +9,43 @@
 
     <org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
         android:id="@+id/fontSizeSeekBar"
-        app:dsb_indicatorElevation="0dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="8dp"
         android:paddingLeft="24dp"
         android:paddingRight="24dp"
         android:paddingTop="8dp"
+        android:visibility="visible"
         app:dsb_indicatorColor="?attr/colorAccent"
+        app:dsb_indicatorElevation="0dp"
         app:dsb_max="80"
         app:dsb_min="10"
-        android:visibility="visible"
         app:dsb_progressColor="?attr/colorAccent"
         app:dsb_rippleColor="?attr/colorAccent" />
 
     <android.support.v4.widget.NestedScrollView
-        android:layout_below="@id/fontSizeSeekBar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@id/fontSizeSeekBar">
 
-        <TextView
-            android:id="@+id/mainTextView"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:background="@drawable/border"
-            android:padding="16dp"
-            android:text="@string/randomLongText" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/mainTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:background="@drawable/border"
+                android:padding="16dp"
+                android:text="@string/randomLongText" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Random shit button"/>
+        </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </RelativeLayout>

@@ -1,7 +1,13 @@
 package example.srujan.com.sgtrv5;
 
+import android.annotation.SuppressLint;
+import android.content.ClipboardManager;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -14,7 +20,6 @@ import android.widget.TextView;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
-import com.nineoldandroids.animation.Animator;
 
 import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 
@@ -27,6 +32,8 @@ public class FragmentMain extends Fragment {
     TextView mainTextView;
     DiscreteSeekBar fontSizeSeekBar;
     View rootView;
+    SharedPreferences preferences;
+    SharedPreferences.Editor editor;
 
 
     @Nullable
@@ -35,7 +42,9 @@ public class FragmentMain extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
         initViews();
-        initSeekBar();
+        initObjects();
+        setMainTextView();
+        setSeekbarActions();
 
         return rootView;
     }
@@ -45,16 +54,23 @@ public class FragmentMain extends Fragment {
         fontSizeSeekBar = (DiscreteSeekBar) rootView.findViewById(R.id.fontSizeSeekBar);
     }
 
-    private void initSeekBar() {
-        final Handler handler = new Handler();
-        final Runnable hideFontSizeSeekBar = new Runnable() {
-            @Override
-            public void run() {
-                fontSizeSeekBar.setVisibility(View.GONE);
-            }
-        };
+    @SuppressLint("CommitPrefEdits")
+    private void initObjects(){
+        preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        editor = preferences.edit();
+    }
 
+    private void setMainTextView(){
         //mainTextView on click seekBarVisibility change
+        ClipboardManager manager;
+        String clipboardContent;
+        int fontSize;
+
+        //Setting up fonts
+        Typeface tf = Typeface.createFromAsset(getActivity().getAssets(), "shruti.ttf");
+        mainTextView.setTypeface(tf);
+
+        //mainTextView onclick listener
         mainTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,12 +79,36 @@ public class FragmentMain extends Fragment {
                 }
                 else {
                     fontSizeSeekBar.setVisibility(View.VISIBLE);
-                    YoYo.with(Techniques.Wave)
-                            .duration(500)
+                    YoYo.with(Techniques.Tada)
+                            .duration(800)
                             .playOn(fontSizeSeekBar);
                 }
             }
         });
+
+        //Set text from clipboard to mainTextView
+        manager = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+        clipboardContent = manager.getPrimaryClip().getItemAt(0).getText().toString();
+        mainTextView.setText(clipboardContent);
+
+        //Set mainTextView font size
+        fontSize = preferences.getInt("mainTextViewFontSize",16);
+        mainTextView.setTextSize(fontSize);
+    }
+
+    private void setSeekbarActions() {
+        final Handler handler = new Handler();
+        int fontSize;
+        final Runnable hideFontSizeSeekBar = new Runnable() {
+            @Override
+            public void run() {
+                fontSizeSeekBar.setVisibility(View.GONE);
+            }
+        };
+
+        //Set seekbar initial progress
+        fontSize = preferences.getInt("mainTextViewFontSize", (int) mainTextView.getTextSize());
+        fontSizeSeekBar.setProgress(fontSize);
 
         //fontSizeSeekBar change listener
         fontSizeSeekBar.setOnProgressChangeListener(new DiscreteSeekBar.OnProgressChangeListener() {
@@ -93,6 +133,8 @@ public class FragmentMain extends Fragment {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+                editor.putInt("mainTextViewFontSize",seekBar.getProgress());
+                editor.commit();
             }
         });
         try {
