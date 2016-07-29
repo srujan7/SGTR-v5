@@ -30,4 +30,5 @@ dependencies {
     compile project(':MaterialDesign')
     compile 'org.adw.library:discrete-seekbar:1.0.1'
     compile 'com.daimajia.androidanimations:library:1.1.3@aar'
+    compile 'com.github.clans:fab:1.6.4'
 }

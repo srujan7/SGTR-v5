@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.github.clans.fab.FloatingActionButton;
 
 import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 
@@ -45,6 +46,7 @@ public class FragmentMain extends Fragment {
         initObjects();
         setMainTextView();
         setSeekbarActions();
+        setFAB();
 
         return rootView;
     }
@@ -94,6 +96,9 @@ public class FragmentMain extends Fragment {
         //Set mainTextView font size
         fontSize = preferences.getInt("mainTextViewFontSize",16);
         mainTextView.setTextSize(fontSize);
+    }
+
+    private void setFAB() {
     }
 
     private void setSeekbarActions() {
