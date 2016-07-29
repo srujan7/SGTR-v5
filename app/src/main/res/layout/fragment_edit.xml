@@ -8,4 +8,14 @@
     android:background="#fafafa"
     android:orientation="vertical">
 
+    <EditText
+        android:id="@+id/mainEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:padding="8dp"
+        android:minLines="4"
+        android:background="@drawable/border"
+        android:hint="@string/mainEditTextHint"/>
+
 </RelativeLayout>
